@@ -1,0 +1,327 @@
+{
+  "seed": 42,
+  "debug": false,
+  "folds": 5,
+  "fold_group": "subzone_id",
+  "data_hashes": {
+    "train.csv": "7d8551d2bb2857034faae74fb2dfc18e437868f3270708b691dbfd0d273ceb02",
+    "test.csv": "16ad669606b88f3c83b6ef55a3930add6bdd45f8cd7e1b2d2ac0a04986dc908f",
+    "sample_submission.csv": "acbd572e26c6858c815ab466b62ab686e5d5631ce055b79ad6749271d4a37c7a"
+  },
+  "pipeline_signature": "7938dc79ceda798da0cd8704a52318896920bcf777ddfd64c61fa4e81c972827",
+  "flags": {
+    "RUN_A": true,
+    "RUN_B": true,
+    "RUN_C": false,
+    "RUN_D": true,
+    "RUN_E": true,
+    "RUN_F": true,
+    "RUN_MLP": false,
+    "RUN_OPTUNA": false,
+    "RUN_DIRECT_GAS": false,
+    "ALLOW_V2_FINAL": false,
+    "USE_GPU": false
+  },
+  "assumptions": {
+    "status": "aproksimasi S7; bukan kode tim persis",
+    "popular12": [
+      "bld_dim_01",
+      "bld_dim_02",
+      "bld_dim_04",
+      "bld_dim_06",
+      "bld_dim_07",
+      "bld_dim_08",
+      "bld_dim_12",
+      "bld_dim_15",
+      "bld_dim_20",
+      "bld_dim_32",
+      "socio_demog_082",
+      "env_climate_05"
+    ],
+    "pairwise": "66 selisih signed-log1p; sama dengan log1p untuk nilai nonnegatif",
+    "S6": "semua rasio bld_dim numerik terhadap luas, ukuran grup, TE zona EUI/listrik",
+    "S7": "S6 + pairwise_logratio + 24 zone_agg + zone_te2",
+    "TE": "inner GroupKFold subzone; smoothing 20; outer valid/test hanya statistik outer train",
+    "electric_A": "fitur S6, sesuai log S7 yang menahan fitur listrik",
+    "params": "parameter S7 asli tidak tercatat; parameter eksplisit LGB_PARAMS"
+  },
+  "v4_reported": {
+    "nrmse": [
+      0.2570545422105751,
+      0.3213428367805631,
+      0.6730196263207351,
+      0.009728635379415285,
+      0.13671481960420132
+    ],
+    "CV": 0.27957209205909794,
+    "public": 0.26088
+  },
+  "stages": {
+    "A": {
+      "status": "complete",
+      "cv": 0.2767602477565497,
+      "nrmse": {
+        "target_macro_gas_kwh": 0.2570565541795229,
+        "target_macro_elec_kwh": 0.3263650331120021,
+        "target_eui_gas_kwh_per_sqm": 0.6730241634316563,
+        "target_clean_building_ratio": 0.009728635379415285,
+        "target_electric_heating_adoption": 0.11762685268015217
+      },
+      "reference_cv": 0.2782,
+      "difference_cv": -0.0014397522434502763,
+      "s7_reproduced": false,
+      "debug": false,
+      "seconds": 2.0728762259996074,
+      "features_including_te": {
+        "raw": 192,
+        "S6": 238,
+        "S7": 331,
+        "S7_density": 334
+      },
+      "adoption_selected": "A_adoption_residual",
+      "adoption_comparisons": [
+        {
+          "name": "A_adoption_residual",
+          "gain_mean": 0.003814256287822615,
+          "gain_std": 0.00033286181526584073,
+          "improved_folds": 5,
+          "accepted": true,
+          "fold_gains": [
+            0.004016523607439482,
+            0.0040736533935284425,
+            0.0033962673232929563,
+            0.003510177102454992,
+            0.004074660012397202
+          ]
+        }
+      ]
+    },
+    "B": {
+      "status": "complete",
+      "selected": "A_electric",
+      "comparisons": [
+        {
+          "name": "B_direct_S7_density",
+          "gain_mean": 0.0002394453674920416,
+          "gain_std": 5.794705718698794e-05,
+          "improved_folds": 5,
+          "accepted": false,
+          "fold_gains": [
+            0.00015890895316406084,
+            0.00031103438149088225,
+            0.0002670870550939286,
+            0.00020910365662274444,
+            0.00025109279108859184
+          ]
+        },
+        {
+          "name": "B_unit_S6_units",
+          "gain_mean": 0.00027141907330869853,
+          "gain_std": 4.5965445356252125e-05,
+          "improved_folds": 5,
+          "accepted": false,
+          "fold_gains": [
+            0.00021639133788847742,
+            0.00033475547602235256,
+            0.00029381999460059705,
+            0.00024125893533977205,
+            0.00027086962269229353
+          ]
+        },
+        {
+          "name": "B_unit_S7_units",
+          "gain_mean": 0.000646271152867517,
+          "gain_std": 9.386796826256529e-05,
+          "improved_folds": 5,
+          "accepted": false,
+          "fold_gains": [
+            0.0005241146710039946,
+            0.0007716140532313953,
+            0.0006832602462773507,
+            0.0006610868653658675,
+            0.0005912799284589765
+          ]
+        },
+        {
+          "name": "B_unit_S7_sqrt_units",
+          "gain_mean": 0.0005556450202805263,
+          "gain_std": 9.785052654773137e-05,
+          "improved_folds": 5,
+          "accepted": false,
+          "fold_gains": [
+            0.0003956041465569271,
+            0.0006600903755587528,
+            0.0005595051260657846,
+            0.0005960697146753513,
+            0.0005669557385458157
+          ]
+        },
+        {
+          "name": "B_unit_S7_area",
+          "gain_mean": 0.0004683632323637443,
+          "gain_std": 5.253900545947558e-05,
+          "improved_folds": 5,
+          "accepted": false,
+          "fold_gains": [
+            0.00039002642715452174,
+            0.0005038373635263826,
+            0.00046109297471685906,
+            0.0005276116179942503,
+            0.00045924777842670794
+          ]
+        }
+      ],
+      "seconds": 3872.362556790001,
+      "invalid_unit_train": 0,
+      "invalid_unit_test": 0
+    },
+    "C": {
+      "status": "cache_only",
+      "candidates": [],
+      "failures": [],
+      "seconds": 0.03136170099969604
+    },
+    "T": {
+      "status": "cache_only",
+      "candidates": [],
+      "studies_completed": 0,
+      "failures": [],
+      "seconds": 0.032514491000256385,
+      "outer_folds": 5,
+      "sample_fraction": 0.25,
+      "inner_folds": 3
+    },
+    "D": {
+      "status": "complete",
+      "selection": {
+        "1": {
+          "name": "A_electric",
+          "kind": "single",
+          "names": [
+            "A_electric"
+          ],
+          "weights": [
+            1.0
+          ]
+        },
+        "2": {
+          "name": "A_eui",
+          "kind": "single",
+          "names": [
+            "A_eui"
+          ],
+          "weights": [
+            1.0
+          ]
+        }
+      },
+      "gas_direct_accepted": false,
+      "CV": 0.27676024775663144,
+      "nrmse": [
+        0.25705655417960294,
+        0.32636503311208964,
+        0.6730241634318789,
+        0.009728635379415285,
+        0.11762685268017058
+      ],
+      "seconds": 7.825167475000853,
+      "training_reference_seconds": 6.987975218000429,
+      "adoption_selected": "A_adoption_residual"
+    },
+    "E": {
+      "status": "complete",
+      "models": {
+        "2": {
+          "model": "A_eui",
+          "samples": 25000,
+          "scale": "target_eui_gas_kwh_per_sqm",
+          "status": "complete"
+        },
+        "1": {
+          "model": "A_electric",
+          "samples": 25000,
+          "scale": "target_macro_elec_kwh",
+          "status": "complete"
+        }
+      },
+      "failures": [],
+      "seconds": 1306.2131033629994
+    },
+    "F": {
+      "status": "complete",
+      "files": {
+        "lookup": "/kaggle/working/outputs/submission_v5_lookup.csv",
+        "nolookup": "/kaggle/working/outputs/submission_v5_nolookup.csv"
+      },
+      "main": "/kaggle/working/submission.csv",
+      "lookup_coverage": 0.9185866392734269,
+      "nrmse_oof_no_lookup": [
+        0.25705655417960294,
+        0.32636503311208964,
+        0.6730241634318789,
+        0.009728635379415285,
+        0.11762685268017058
+      ],
+      "CV_oof_no_lookup": 0.27676024775663144,
+      "public_estimate_lookup_heuristic": 0.25795024775663145,
+      "reference_reproduced": false,
+      "calibration_note": "selisih tetap S7 hanya heuristik; lookup mengubah dampak perbaikan adopsi",
+      "adoption_selected": "A_adoption_residual",
+      "selection": {
+        "1": {
+          "name": "A_electric",
+          "kind": "single",
+          "names": [
+            "A_electric"
+          ],
+          "weights": [
+            1.0
+          ]
+        },
+        "2": {
+          "name": "A_eui",
+          "kind": "single",
+          "names": [
+            "A_eui"
+          ],
+          "weights": [
+            1.0
+          ]
+        }
+      },
+      "v4_CV_reported": 0.27957209205909794,
+      "gain_vs_v4_descriptive": 0.002811844302466504,
+      "seconds": 7.126885935000246
+    }
+  },
+  "selection": {
+    "1": {
+      "name": "A_electric",
+      "kind": "single",
+      "names": [
+        "A_electric"
+      ],
+      "weights": [
+        1.0
+      ]
+    },
+    "2": {
+      "name": "A_eui",
+      "kind": "single",
+      "names": [
+        "A_eui"
+      ],
+      "weights": [
+        1.0
+      ]
+    }
+  },
+  "adoption_selected": "A_adoption_residual",
+  "steps": [
+    "Pasang CSV kompetisi dan artefak v2 opsional",
+    "Atur flag dan jalankan dari atas",
+    "Periksa reproduksi A serta delta per fold B/D",
+    "Tinjau SHAP E dan pilih submission F"
+  ],
+  "lookup_note": "Label train via subzone_id; bukan data eksternal/pseudo-labeling; keputusan aturan pada panitia."
+}
